@@ -22,11 +22,11 @@ if($sprint) $query .= " AND sp.positionText='$sprint'";
 $query .= " ORDER BY ra.year, ra.round, sp.positionOrder LIMIT $offset, $limit";
 
 //echo "$query<br>\n<br>\n";
-$result = mysqli_query($mysqli, $query) or die('I cannot select from the database because: ' . mysqli_error());
+$result = mysqli_query($connection, $query) or die('I cannot select from the database because: ' . mysqli_error());
 
 if($result) {
   $query = "SELECT FOUND_ROWS()";
-  $found_rows_result = mysqli_query($mysqli, $query) or die('I cannot select from the database because: ' . mysqli_error());
+  $found_rows_result = mysqli_query($connection, $query) or die('I cannot select from the database because: ' . mysqli_error());
   $row = mysqli_fetch_row($found_rows_result);
   $total = $row[0];
   $currentRound = NULL;

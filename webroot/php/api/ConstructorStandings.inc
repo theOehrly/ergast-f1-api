@@ -21,11 +21,11 @@ if($round) {
 
 $query .= " ORDER BY r.year, cs.position LIMIT $offset, $limit";
 //echo "query=$query<br/>\n";
-$result = mysql_query($query) or die('I cannot select from the database because: ' . mysql_error());
+$result = mysqli_query($connection, $query) or die('I cannot select from the database because: ' . mysqli_error());
 
 $query = "SELECT FOUND_ROWS()";
-$found_rows_result = mysql_query($query) or die('I cannot select from the database because: ' . mysql_error());
-$row = mysql_fetch_row($found_rows_result);
+$found_rows_result = mysqli_query($connection, $query) or die('I cannot select from the database because: ' . mysqli_error());
+$row = mysqli_fetch_row($found_rows_result);
 $total = $row[0];
 
 if(strcmp($format, "xml") == 0) {
@@ -37,7 +37,7 @@ if(strcmp($format, "xml") == 0) {
   if(isset($constructorStandings)) echo " constructorStandings=\"$constructorStandings\"";
 
   echo ">\n";  
-  while($row = @mysql_fetch_array($result)) {
+  while($row = @mysqli_fetch_array($result)) {
     $constructorRef = $row[0];
     $name = $row[1];
     $nationality = $row[2];
@@ -78,10 +78,10 @@ if(strcmp($format, "xml") == 0) {
   if(isset($constructor)) echo "\"constructorId\":\"$constructor\",";
   if(isset($constructorStandings)) echo "\"constructorStandings\":\"$constructorStandings\",";
   
-  $numRows = mysql_num_rows($result);
+  $numRows = mysqli_num_rows($result);
   echo "\"StandingsLists\":[";
   if($numRows > 0) {
-    while($row = @mysql_fetch_array($result)) {
+    while($row = @mysqli_fetch_array($result)) {
       $constructorRef = $row[0];
       $name = $row[1];
       $nationality = $row[2];

@@ -1,4 +1,7 @@
 <?php
+// FIX: Disable warnings output in webpage
+error_reporting(E_ERROR | E_PARSE);
+
 include("functions.inc");
 
 $urlComponents = parse_url($_SERVER['REQUEST_URI']);
@@ -10,7 +13,7 @@ if($period !== FALSE) {
   $path = substr($path, 0, $period);
   if(strcmp($format, "xml") != 0 && strcmp($format, "json") != 0) error(404, "Format not found.");
 } else {
-  $format = "xml";  // Default. 
+  $format = "xml";  // Default.
 }
 
 parse_str($urlComponents['query'], $fields);
